@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Transfers from '../Transfers/index.js'
+import TransferFilters from '../TransferFilters/index.js'
 import TicketsList from '../TicketsList/index.js'
-import Filters from '../Filters/index.js'
+import SortTabs from '../SortTabs/index.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
 import logo from '../../icons/logo.png'
 
@@ -13,9 +13,9 @@ function App() {
     <div className={classes['page-wrapper']}>
       <img className={classes.logo} src={logo} alt="aviasales logo" />
       <div className={classes['content-wrapper']}>
-        <Transfers />
+        <TransferFilters />
         <section className={classes['tickets-wrapper']}>
-          <Filters />
+          <SortTabs />
           <TicketsList />
           <ShowMoreButton />
         </section>

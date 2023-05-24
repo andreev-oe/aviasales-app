@@ -1,10 +1,10 @@
 import React from 'react'
 
-import classes from '../Filters/Filters.module.scss'
+import classes from './SortTabs.module.scss'
 
-const Filters = () => {
+const SortTabs = () => {
   return (
-    <div className={classes.filters}>
+    <div className={classes.tabs}>
       <button type={'button'} className={`${classes.button} ${classes['button-active']} ${classes['button-cheap']}`}>
         Самый дешёвый
       </button>
@@ -15,4 +15,4 @@ const Filters = () => {
   )
 }
 
-export default Filters
+export default SortTabs

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import classes from '../Transfers/Transfers.module.scss'
+import classes from './TransferFilters.module.scss'
 
-const Transfers = () => {
+const TransferFilters = () => {
   return (
     <section className={classes.transfers}>
       <h2 className={classes['transfers-title']}>Количество пересадок</h2>
@@ -32,4 +32,4 @@ const Transfers = () => {
   )
 }
 
-export default Transfers
+export default TransferFilters
