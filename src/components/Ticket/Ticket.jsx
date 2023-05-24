@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Route from '../Route/index.js'
-import classes from '../App/App.module.scss'
+import classes from '../Ticket/Ticket.module.scss'
 import companyLogo from '../../icons/S7-logo.png'
 
 const Ticket = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import classes from '../App/App.module.scss'
+import classes from '../Route/Route.module.scss'
 
 const Route = () => {
   // TODO remove duplicated route, use one route per instance

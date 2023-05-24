@@ -1,6 +1,6 @@
 import React from 'react'
 
-import classes from '../App/App.module.scss'
+import classes from '../Filters/Filters.module.scss'
 
 const Filters = () => {
   return (

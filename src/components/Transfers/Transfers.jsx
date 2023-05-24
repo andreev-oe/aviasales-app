@@ -1,6 +1,6 @@
 import React from 'react'
 
-import classes from '../App/App.module.scss'
+import classes from '../Transfers/Transfers.module.scss'
 
 const Transfers = () => {
   return (

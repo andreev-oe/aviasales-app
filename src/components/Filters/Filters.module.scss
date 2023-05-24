@@ -1,0 +1,32 @@
+.filters {
+  display: flex;
+}
+.button {
+  text-transform: uppercase;
+  height: 50px;
+  font-family: 'Open Sans', sans-serif;
+  width: 50%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  color: #4a4a4a;
+  background: #ffffff;
+  border: 1px solid #dfe5ec;
+}
+.button:hover {
+  cursor: url(../../icons/cursor.png), pointer;
+}
+.button-active {
+  color: #ffffff;
+  background-color: #2196f3;
+  border-color: #2196f3;
+}
+.button-cheap {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.button-fast {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

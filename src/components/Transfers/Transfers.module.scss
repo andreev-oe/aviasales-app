@@ -1,0 +1,50 @@
+.transfers {
+  padding: 20px 0;
+  box-sizing: border-box;
+  width: 232px;
+  height: 252px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.transfers-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #4a4a4a;
+  margin: 0 0 10px 0;
+  padding-left: 20px;
+}
+.transfer {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 13px;
+  height: 40px;
+  padding-left: 20px;
+  margin: 0;
+}
+.transfer:hover {
+  background-color: #f1fcff;
+  cursor: url(../../icons/cursor.png), pointer;
+}
+.transfer-title {
+  margin: 0 0 0 10px;
+  padding: 10px;
+  vertical-align: middle;
+  color: #4a4a4a;
+}
+.checkbox:hover {
+  cursor: url(../../icons/cursor.png), pointer;
+}
+@media (max-width: 880px) {
+  .variants {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  .transfers {
+    width: 100%;
+    height: auto;
+  }
+}
