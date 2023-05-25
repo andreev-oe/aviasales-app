@@ -3,6 +3,9 @@ export const sortFastest = () => ({ type: 'SORT_FASTEST' })
 export const filter = (evt) => {
   return {
     type: 'FILTER',
-    checkedFilter: evt.target.id,
+    checkedFilter: {
+      checked: evt.target.checked,
+      filterName: evt.target.dataset.filterName,
+    },
   }
 }
