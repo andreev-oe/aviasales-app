@@ -2,13 +2,18 @@ const rootReducer = (
   state = {
     activeSortTab: 'default',
     activeFilters: [],
+    tickets: [],
   },
   action
 ) => {
   const newState = { ...state }
   newState.activeFilters = [...state.activeFilters]
+  newState.tickets = [...state.tickets]
   const filterIndex = (filterName) => newState.activeFilters.findIndex((name) => name === filterName)
   switch (action.type) {
+    case 'GET_TICKETS':
+      newState.tickets = action.tickets
+      return newState
     case 'SORT_FASTEST':
       newState.activeSortTab = 'SORT_FASTEST'
       return newState

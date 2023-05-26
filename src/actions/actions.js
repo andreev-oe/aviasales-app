@@ -9,3 +9,19 @@ export const filter = (evt) => {
     },
   }
 }
+export const getTickets = () => {
+  return async (dispatch) => {
+    try {
+      const searchIdResponse = await fetch('https://aviasales-test-api.kata.academy/search')
+      const searchId = await searchIdResponse.json()
+      const ticketsResponse = await fetch(
+        `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId.searchId}`
+      )
+      const tickets = await ticketsResponse.json()
+      dispatch({ type: 'GET_TICKETS', tickets: tickets })
+    } catch (error) {
+      // TODO handle errors
+      console.log(error)
+    }
+  }
+}
