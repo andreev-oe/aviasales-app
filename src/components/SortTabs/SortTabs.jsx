@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { sortFastest, sortCheapest } from '../../actions/actions.js'
+import { sortCheapest, sortFastest } from '../../actions/actions.js'
 
 import classes from './SortTabs.module.scss'
 
@@ -23,8 +24,14 @@ const SortTabs = ({ sortFastest, sortCheapest }) => {
 }
 const mapStateToProps = (state) => {
   return {
-    sort: state.sort,
+    activeSortTab: state.activeSortTab,
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sortFastest: bindActionCreators(sortFastest, dispatch),
+    sortCheapest: bindActionCreators(sortCheapest, dispatch),
   }
 }
 
-export default connect(mapStateToProps, { sortFastest, sortCheapest })(SortTabs)
+export default connect(mapStateToProps, mapDispatchToProps)(SortTabs)
