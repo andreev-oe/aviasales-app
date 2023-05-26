@@ -1,4 +1,4 @@
-const reducer = (
+const rootReducer = (
   state = {
     activeSortTab: 'default',
     activeFilters: [],
@@ -46,4 +46,4 @@ const reducer = (
   }
 }
 
-export default reducer
+export default rootReducer
