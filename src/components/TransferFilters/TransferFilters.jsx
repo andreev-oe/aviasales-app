@@ -10,7 +10,6 @@ const TransferFilters = ({ filter, activeFilters }) => {
   return (
     <section className={classes.transfers}>
       <h2 className={classes['transfers-title']}>Количество пересадок</h2>
-      <h2 className={classes['transfers-title']}>{activeFilters}</h2>
       <div className={classes.variants}>
         <label htmlFor="1" className={classes.transfer}>
           <input

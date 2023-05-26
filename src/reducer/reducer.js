@@ -1,7 +1,7 @@
 const reducer = (
   state = {
     activeSortTab: 'default',
-    activeFilters: ['default'],
+    activeFilters: [],
   },
   action
 ) => {
@@ -16,21 +16,31 @@ const reducer = (
       newState.activeSortTab = 'SORT_CHEAPEST'
       return newState
     case 'FILTER':
-      if (action.checkedFilter.checked && action.checkedFilter.filterName === 'NONE') {
-        newState.activeFilters = ['NONE']
-        return newState
-      } else if (action.checkedFilter.checked && action.checkedFilter.filterName === 'ALL') {
+      if (action.checkedFilter.checked && action.checkedFilter.filterName === 'ALL') {
         newState.activeFilters = ['ALL', 'NONE', '1', '2', '3']
-        return newState
+      } else if (!action.checkedFilter.checked && action.checkedFilter.filterName === 'ALL') {
+        newState.activeFilters = []
       } else if (action.checkedFilter.checked && filterIndex(action.checkedFilter.filterName) < 0) {
         newState.activeFilters.push(action.checkedFilter.filterName)
-        return newState
       } else if (!action.checkedFilter.checked) {
         const index = filterIndex(action.checkedFilter.filterName)
         newState.activeFilters.splice(index, 1)
-        return newState
       }
-      break
+      if (
+        newState.activeFilters.length === 4 &&
+        action.checkedFilter.checked &&
+        action.checkedFilter.filterName !== 'ALL'
+      ) {
+        newState.activeFilters = ['ALL', 'NONE', '1', '2', '3']
+      } else if (
+        !action.checkedFilter.checked &&
+        newState.activeFilters.length === 4 &&
+        action.checkedFilter.filterName !== 'ALL'
+      ) {
+        const index = filterIndex('ALL')
+        newState.activeFilters.splice(index, 1)
+      }
+      return newState
     default:
       return newState
   }
