@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -6,16 +6,14 @@ import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
 import { getTickets } from '../../actions/actions.js'
 
-const TicketsList = ({ getTickets }) => {
+const TicketsList = ({ tickets, getTickets }) => {
+  useEffect(() => {
+    getTickets()
+  }, [])
   return (
     <div className={classes.tickets}>
-      <button onClick={getTickets}>getTickets</button>
       <ul className={classes['tickets-list']}>
-        <Ticket />
-        <Ticket />
-        <Ticket />
-        <Ticket />
-        <Ticket />
+        {tickets.tickets ? tickets.tickets.map((ticket, index) => <Ticket key={index} ticket={ticket} />) : null}
       </ul>
     </div>
   )
