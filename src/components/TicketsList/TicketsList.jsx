@@ -6,13 +6,39 @@ import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
 import { getTickets } from '../../actions/actions.js'
 
-const TicketsList = ({ tickets, getTickets, activeFilters }) => {
+const TicketsList = ({ tickets, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
     getTickets()
   }, [])
   const filter = () => {
     if (activeFilters.some((filterName) => filterName === 'ALL')) {
-      return tickets.tickets ? tickets.tickets.map((ticket, index) => <Ticket key={index} ticket={ticket} />) : null
+      const asd = tickets.tickets ? tickets.tickets : null
+      if (asd) {
+        switch (activeSortTab) {
+          case 'SORT_FASTEST':
+            asd.sort((a, b) => {
+              if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
+                return -1
+              }
+              if (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration) {
+                return 1
+              }
+              return 0
+            })
+            return asd.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+          case 'SORT_CHEAPEST':
+            asd.sort((a, b) => {
+              if (a.price < b.price) {
+                return -1
+              }
+              if (a.price > b.price) {
+                return 1
+              }
+              return 0
+            })
+            return asd.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+        }
+      }
     } else if (!activeFilters.length) {
       return null
     }
@@ -28,6 +54,7 @@ const mapStateToProps = (state) => {
   return {
     tickets: state.tickets,
     activeFilters: state.activeFilters,
+    activeSortTab: state.activeSortTab,
   }
 }
 const mapDispatchToProps = (dispatch) => {
