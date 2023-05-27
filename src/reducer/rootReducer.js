@@ -1,7 +1,7 @@
 const rootReducer = (
   state = {
     activeSortTab: 'default',
-    activeFilters: [],
+    activeFilters: ['ALL', 'NONE', '1', '2', '3'],
     tickets: {},
   },
   action
@@ -15,6 +15,7 @@ const rootReducer = (
       newState.tickets = action.tickets
       return newState
     case 'SORT_FASTEST':
+      //TODO move sorting from reducer to SortTabs component
       newState.activeSortTab = 'SORT_FASTEST'
       newState.tickets.tickets.sort((a, b) => {
         if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
