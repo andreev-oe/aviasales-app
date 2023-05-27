@@ -11,12 +11,82 @@ const TicketsList = ({ tickets, getTickets, activeFilters, activeSortTab }) => {
     getTickets()
   }, [])
   const filter = () => {
+    let asd = tickets.tickets ? tickets.tickets : null
+    let result = asd ? [...asd] : []
+    let none = []
+    let one = []
+    let two = []
+    let three = []
     if (activeFilters.some((filterName) => filterName === 'ALL')) {
-      const asd = tickets.tickets ? tickets.tickets : null
-      if (asd) {
+      switch (activeSortTab) {
+        case 'SORT_FASTEST':
+          result.sort((a, b) => {
+            if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
+              return -1
+            }
+            if (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration) {
+              return 1
+            }
+            return 0
+          })
+          return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+        case 'SORT_CHEAPEST':
+          result.sort((a, b) => {
+            if (a.price < b.price) {
+              return -1
+            }
+            if (a.price > b.price) {
+              return 1
+            }
+            return 0
+          })
+          return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+      }
+    } else if (!activeFilters.length) {
+      return null
+    }
+    if (result.length) {
+      if (activeFilters.some((filterName) => filterName === 'NONE')) {
+        none = [
+          ...asd.filter((ticket) => {
+            if (!ticket.segments[0].stops.length && !ticket.segments[1].stops.length) {
+              return ticket
+            }
+          }),
+        ]
+      }
+      if (activeFilters.some((filterName) => filterName === '1')) {
+        one = [
+          ...asd.filter((ticket) => {
+            if (ticket.segments[0].stops.length === 1 && ticket.segments[1].stops.length === 1) {
+              return ticket
+            }
+          }),
+        ]
+      }
+      if (activeFilters.some((filterName) => filterName === '2')) {
+        two = [
+          ...asd.filter((ticket) => {
+            if (ticket.segments[0].stops.length === 2 && ticket.segments[1].stops.length === 2) {
+              return ticket
+            }
+          }),
+        ]
+      }
+      if (activeFilters.some((filterName) => filterName === '3')) {
+        three = [
+          ...asd.filter((ticket) => {
+            if (ticket.segments[0].stops.length === 3 && ticket.segments[1].stops.length === 3) {
+              return ticket
+            }
+          }),
+        ]
+      }
+      result = [...none, ...one, ...two, ...three]
+      if (result.length) {
         switch (activeSortTab) {
           case 'SORT_FASTEST':
-            asd.sort((a, b) => {
+            result.sort((a, b) => {
               if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
                 return -1
               }
@@ -25,9 +95,9 @@ const TicketsList = ({ tickets, getTickets, activeFilters, activeSortTab }) => {
               }
               return 0
             })
-            return asd.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+            return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
           case 'SORT_CHEAPEST':
-            asd.sort((a, b) => {
+            result.sort((a, b) => {
               if (a.price < b.price) {
                 return -1
               }
@@ -36,11 +106,9 @@ const TicketsList = ({ tickets, getTickets, activeFilters, activeSortTab }) => {
               }
               return 0
             })
-            return asd.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+            return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
         }
       }
-    } else if (!activeFilters.length) {
-      return null
     }
   }
   return (
