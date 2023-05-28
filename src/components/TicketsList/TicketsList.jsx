@@ -4,14 +4,19 @@ import { bindActionCreators } from 'redux'
 
 import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
-import { getTickets } from '../../actions/actions.js'
+import { getSearchId, getTickets } from '../../actions/actions.js'
 
-const TicketsList = ({ tickets, getTickets, activeFilters, activeSortTab }) => {
+const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
-    getTickets()
+    getSearchId()
   }, [])
+  useEffect(() => {
+    if (searchId && !stop) {
+      getTickets(searchId)
+    }
+  }, [searchId, tickets])
   const filter = () => {
-    let asd = tickets.tickets ? tickets.tickets : null
+    let asd = tickets ? tickets : null
     let result = asd ? [...asd] : []
     let none = []
     let one = []
@@ -106,13 +111,14 @@ const TicketsList = ({ tickets, getTickets, activeFilters, activeSortTab }) => {
               }
               return 0
             })
-            return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+            return result.map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)
         }
       }
     }
   }
   return (
     <div className={classes.tickets}>
+      <div>{stop ? 'done' : 'stop'}</div>
       <ul className={classes['tickets-list']}>{filter()}</ul>
     </div>
   )
@@ -120,7 +126,9 @@ const TicketsList = ({ tickets, getTickets, activeFilters, activeSortTab }) => {
 
 const mapStateToProps = (state) => {
   return {
-    tickets: state.tickets,
+    tickets: state.data.tickets,
+    stop: state.data.stop,
+    searchId: state.data.searchId,
     activeFilters: state.activeFilters,
     activeSortTab: state.activeSortTab,
   }
@@ -128,6 +136,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTickets: bindActionCreators(getTickets, dispatch),
+    getSearchId: bindActionCreators(getSearchId, dispatch),
   }
 }
 

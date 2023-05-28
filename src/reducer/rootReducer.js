@@ -1,18 +1,33 @@
+import { nanoid } from 'nanoid'
+
 const rootReducer = (
   state = {
     activeSortTab: 'SORT_CHEAPEST',
     activeFilters: ['ALL', 'NONE', '1', '2', '3'],
-    tickets: {},
+    data: {
+      tickets: [],
+      stop: false,
+      searchId: '',
+    },
   },
   action
 ) => {
   const newState = { ...state }
   newState.activeFilters = [...state.activeFilters]
-  newState.tickets = { ...state.tickets }
+  newState.data = { ...state.data }
+  const setTicketsId = (tickets) =>
+    tickets.map((ticket) => {
+      ticket.id = nanoid()
+      return ticket
+    })
   const filterIndex = (filterName) => newState.activeFilters.findIndex((name) => name === filterName)
   switch (action.type) {
+    case 'GET_SEARCH_ID':
+      newState.data.searchId = action.searchId
+      return newState
     case 'GET_TICKETS':
-      newState.tickets = action.tickets
+      newState.data.tickets = [...newState.data.tickets, ...setTicketsId(action.data.tickets)]
+      newState.data.stop = action.data.stop
       return newState
     case 'SORT_FASTEST':
       newState.activeSortTab = 'SORT_FASTEST'
