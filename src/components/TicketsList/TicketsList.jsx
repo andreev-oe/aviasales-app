@@ -118,7 +118,12 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
   }
   return (
     <div className={classes.tickets}>
-      <div>{stop ? 'done' : 'stop'}</div>
+      {stop ? null : (
+        <div className={classes.loader}>
+          <div className={classes.loading}></div>
+          <p className={classes['loading-text']}>Loading tickets...</p>
+        </div>
+      )}
       <ul className={classes['tickets-list']}>{filter()}</ul>
     </div>
   )
