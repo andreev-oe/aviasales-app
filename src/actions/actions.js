@@ -1,4 +1,4 @@
-import { actionType, basUrl } from '../constants.js'
+import { actionType, basUrl } from '../constants/constants.js'
 
 export const sortCheapest = () => ({ type: actionType.SORT_CHEAPEST })
 export const sortFastest = () => ({ type: actionType.SORT_FASTEST })

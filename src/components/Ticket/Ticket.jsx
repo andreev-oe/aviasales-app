@@ -2,7 +2,7 @@ import React from 'react'
 
 import Route from '../Route/index.js'
 import classes from '../Ticket/Ticket.module.scss'
-import { spliceParams } from '../../constants.js'
+import { spliceParams } from '../../constants/constants.js'
 
 const Ticket = ({ ticket }) => {
   const { price, carrier, segments } = ticket

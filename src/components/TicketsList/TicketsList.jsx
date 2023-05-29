@@ -6,8 +6,8 @@ import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
 import { getSearchId, getTickets } from '../../actions/actions.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
-import { defaultChunkLength } from '../../constants.js'
-import { filterItems } from '../../utils.js'
+import { defaultChunkLength } from '../../constants/constants.js'
+import { filterItems } from '../../utilities/utilities.js'
 
 const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {

@@ -9,7 +9,7 @@ import {
   MIN_LEFT_PAD_NUMBER,
   TIME_FORMAT,
   NO_STOPS_TEXT,
-} from '../../constants.js'
+} from '../../constants/constants.js'
 
 const Route = ({ segment: { origin, destination, date, duration, stops } }) => {
   return (

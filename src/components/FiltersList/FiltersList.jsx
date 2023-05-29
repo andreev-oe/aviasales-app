@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import { filter } from '../../actions/actions.js'
 import Filter from '../Filter/index.js'
-import { filters } from '../../constants.js'
+import { filters } from '../../constants/constants.js'
 
 import classes from './FiltersList.module.scss'
 

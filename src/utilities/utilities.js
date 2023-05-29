@@ -1,4 +1,4 @@
-import { filterOption, actionType, transfersCount } from './constants.js'
+import { filterOption, actionType, transfersCount } from '../constants/constants.js'
 
 const sortItemsDuration = (items) => {
   items.sort((a, b) => {

@@ -9,7 +9,7 @@
 }
 .transfer:hover {
   background-color: #f1fcff;
-  cursor: url(../../icons/cursor.png), pointer;
+  cursor: url(../../assets/icons/cursor.png), pointer;
 }
 .transfer-title {
   margin: 0 0 0 30px;
@@ -18,12 +18,12 @@
   color: #4a4a4a;
 }
 .checkbox:before {
-  content: url('../../icons/checkbox_empty.png');
+  content: url('../../assets/icons/checkbox_empty.png');
   width: 20px;
   height: 20px;
 }
 .checkbox:checked:before {
-  content: url('../../icons/checkbox-checked.png');
+  content: url('../../assets/icons/checkbox-checked.png');
   width: 20px;
   height: 20px;
 }
@@ -34,5 +34,5 @@
   appearance: none;
 }
 .checkbox:hover {
-  cursor: url(../../icons/cursor.png), pointer;
+  cursor: url(../../assets/icons/cursor.png), pointer;
 }
