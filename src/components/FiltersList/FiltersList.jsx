@@ -21,7 +21,7 @@ const filters = [
   {
     id: 3,
     name: '1',
-    description: '1 пересандка',
+    description: '1 пересадка',
   },
   {
     id: 4,

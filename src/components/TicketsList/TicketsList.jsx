@@ -123,6 +123,8 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
   const showTickets = (tickets, ticketsPortion = defaultChunkLength) => {
     if (tickets) {
       return tickets.slice(0, ticketsPortion).map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)
+    } else {
+      return <li className={classes['not-found-text']}>Не найдено билетов по выбранным фильтрам</li>
     }
   }
   const onShowMoreButtonClick = () => {
@@ -133,12 +135,10 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
       {stop ? null : (
         <div className={classes.loader}>
           <div className={classes.loading}></div>
-          <p className={classes['loading-text']}>Loading tickets...</p>
+          <p className={classes['loading-text']}>Ищем билеты...</p>
         </div>
       )}
-      <ul className={classes['tickets-list']}>
-        {showTickets(filter(), chunkLength) ? showTickets(filter(), chunkLength) : 'Tickets not found'}
-      </ul>
+      <ul className={classes['tickets-list']}>{showTickets(filter(), chunkLength)}</ul>
       <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />
     </div>
   )
