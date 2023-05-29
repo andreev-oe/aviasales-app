@@ -6,7 +6,8 @@ import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
 import { getSearchId, getTickets } from '../../actions/actions.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
-import { actionType, filterOption, defaultChunkLength } from '../../constants.js'
+import { filterOption, defaultChunkLength } from '../../constants.js'
+import { sortItems, filterItems } from '../../utils.js'
 
 const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
@@ -17,107 +18,18 @@ const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, 
       getTickets(searchId)
     }
   }, [searchId, tickets])
+  useEffect(() => {
+    setPreparedTickets(prepareTicketsList(tickets))
+  }, [activeFilters, activeSortTab, tickets])
   const [chunkLength, setChunkLength] = useState(defaultChunkLength)
-  //TODO refactor filter function
-  const filter = () => {
-    let asd = tickets ? tickets : null
-    let result = asd ? [...asd] : []
-    let none = []
-    let one = []
-    let two = []
-    let three = []
+  const [preparedTickets, setPreparedTickets] = useState([])
+  const prepareTicketsList = (tickets) => {
     if (activeFilters.some((filterName) => filterName === filterOption.ALL)) {
-      switch (activeSortTab) {
-        case actionType.SORT_FASTEST:
-          result.sort((a, b) => {
-            if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
-              return -1
-            }
-            if (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration) {
-              return 1
-            }
-            return 0
-          })
-          return result
-        case actionType.SORT_CHEAPEST:
-          result.sort((a, b) => {
-            if (a.price < b.price) {
-              return -1
-            }
-            if (a.price > b.price) {
-              return 1
-            }
-            return 0
-          })
-          return result
-      }
+      return sortItems(activeSortTab, tickets)
     } else if (!activeFilters.length) {
       return null
-    }
-    if (result.length) {
-      if (activeFilters.some((filterName) => filterName === filterOption.NONE)) {
-        none = [
-          ...asd.filter((ticket) => {
-            if (!ticket.segments[0].stops.length && !ticket.segments[1].stops.length) {
-              return ticket
-            }
-          }),
-        ]
-      }
-      if (activeFilters.some((filterName) => filterName === filterOption.ONE_TRANSFER)) {
-        one = [
-          ...asd.filter((ticket) => {
-            if (ticket.segments[0].stops.length === 1 && ticket.segments[1].stops.length === 1) {
-              return ticket
-            }
-          }),
-        ]
-      }
-      if (activeFilters.some((filterName) => filterName === filterOption.TWO_TRANSFERS)) {
-        two = [
-          ...asd.filter((ticket) => {
-            if (ticket.segments[0].stops.length === 2 && ticket.segments[1].stops.length === 2) {
-              return ticket
-            }
-          }),
-        ]
-      }
-      if (activeFilters.some((filterName) => filterName === filterOption.THREE_TRANSFERS)) {
-        three = [
-          ...asd.filter((ticket) => {
-            if (ticket.segments[0].stops.length === 3 && ticket.segments[1].stops.length === 3) {
-              return ticket
-            }
-          }),
-        ]
-      }
-      result = [...none, ...one, ...two, ...three]
-      if (result.length) {
-        switch (activeSortTab) {
-          case actionType.SORT_FASTEST:
-            result.sort((a, b) => {
-              if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
-                return -1
-              }
-              if (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration) {
-                return 1
-              }
-              return 0
-            })
-            return result
-          case actionType.SORT_CHEAPEST:
-            result.sort((a, b) => {
-              if (a.price < b.price) {
-                return -1
-              }
-              if (a.price > b.price) {
-                return 1
-              }
-              return 0
-            })
-            return result
-        }
-      }
+    } else {
+      return filterItems(tickets, activeFilters, activeSortTab)
     }
   }
   const showTickets = (tickets, ticketsPortion = defaultChunkLength) => {
@@ -130,7 +42,7 @@ const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, 
     }
   }
   const onShowMoreButtonClick = () => {
-    if (filter()) {
+    if (preparedTickets) {
       setChunkLength((chunkLength) => chunkLength + defaultChunkLength)
     }
   }
@@ -147,7 +59,7 @@ const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, 
           <p className={classes['loading-text']}>Загрузка всех билетов не удалась, попробуйте перезагрузить страницу</p>
         </div>
       ) : null}
-      <ul className={classes['tickets-list']}>{showTickets(filter(), chunkLength)}</ul>
+      <ul className={classes['tickets-list']}>{showTickets(preparedTickets, chunkLength)}</ul>
       <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />
     </div>
   )

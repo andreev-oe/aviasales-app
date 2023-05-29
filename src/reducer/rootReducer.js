@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 
 import { actionType, filterOption, ALL_FILTERS_SELECTED_NUMBER, spliceParams } from '../constants.js'
-
+//TODO split reducers and use combineReducers to join them
 const rootReducer = (
   state = {
     activeSortTab: actionType.SORT_CHEAPEST,
