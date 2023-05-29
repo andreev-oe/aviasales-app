@@ -2,9 +2,9 @@ import React from 'react'
 
 import classes from '../ShowMoreButton/ShowMoreButton.module.scss'
 
-const ShowMoreButton = () => {
+const ShowMoreButton = ({ onShowMoreButtonClick }) => {
   return (
-    <button type={'button'} className={classes['show-more']}>
+    <button onClick={onShowMoreButtonClick} type={'button'} className={classes['show-more']}>
       Показать еще 5 билетов!
     </button>
   )

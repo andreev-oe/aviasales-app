@@ -3,7 +3,6 @@ import React from 'react'
 import TransferFilters from '../TransferFilters/index.js'
 import TicketsList from '../TicketsList/index.js'
 import SortTabs from '../SortTabs/index.js'
-import ShowMoreButton from '../ShowMoreButton/index.js'
 import logo from '../../icons/logo.png'
 
 import classes from './App.module.scss'
@@ -17,7 +16,6 @@ function App() {
         <section className={classes['tickets-wrapper']}>
           <SortTabs />
           <TicketsList />
-          <ShowMoreButton />
         </section>
       </div>
     </div>

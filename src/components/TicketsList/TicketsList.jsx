@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
 import { getSearchId, getTickets } from '../../actions/actions.js'
+import ShowMoreButton from '../ShowMoreButton/index.js'
 
 const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
       getTickets(searchId)
     }
   }, [searchId, tickets])
+  const [chunkLength, setChunkLength] = useState(5)
   const filter = () => {
     let asd = tickets ? tickets : null
     let result = asd ? [...asd] : []
@@ -34,7 +36,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
             }
             return 0
           })
-          return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+          return result
         case 'SORT_CHEAPEST':
           result.sort((a, b) => {
             if (a.price < b.price) {
@@ -45,7 +47,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
             }
             return 0
           })
-          return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+          return result
       }
     } else if (!activeFilters.length) {
       return null
@@ -100,7 +102,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
               }
               return 0
             })
-            return result.map((ticket, index) => <Ticket key={index} ticket={ticket} />)
+            return result
           case 'SORT_CHEAPEST':
             result.sort((a, b) => {
               if (a.price < b.price) {
@@ -111,10 +113,20 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
               }
               return 0
             })
-            return result.map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)
+            return result
         }
       }
     }
+  }
+  const showTickets = (tickets, ticketsPortion = 5) => {
+    const chunk = tickets.slice(0, ticketsPortion).map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)
+    if (chunk.length > 5) {
+      return chunk
+    }
+    return chunk
+  }
+  const onShowMoreButtonClick = () => {
+    setChunkLength((chunkLength) => chunkLength + 5)
   }
   return (
     <div className={classes.tickets}>
@@ -124,7 +136,8 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
           <p className={classes['loading-text']}>Loading tickets...</p>
         </div>
       )}
-      <ul className={classes['tickets-list']}>{filter()}</ul>
+      {showTickets(filter(), chunkLength)}
+      <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />
     </div>
   )
 }
