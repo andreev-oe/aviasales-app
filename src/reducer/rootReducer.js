@@ -15,6 +15,7 @@ const rootReducer = (
     data: {
       tickets: [],
       stop: false,
+      error: false,
       searchId: '',
     },
   },
@@ -23,18 +24,22 @@ const rootReducer = (
   const newState = { ...state }
   newState.activeFilters = [...state.activeFilters]
   newState.data = { ...state.data }
-  const setTicketsId = (tickets) =>
+  const setTicketId = (tickets) =>
     tickets.map((ticket) => {
       ticket.id = nanoid()
       return ticket
     })
   const filterIndex = (filterName) => newState.activeFilters.findIndex((name) => name === filterName)
   switch (action.type) {
+    case actionType.ERROR:
+      newState.data.error = action.data.error
+      newState.data.stop = action.data.stop
+      return newState
     case actionType.GET_SEARCH_ID:
       newState.data.searchId = action.searchId
       return newState
     case actionType.GET_TICKETS:
-      newState.data.tickets = [...newState.data.tickets, ...setTicketsId(action.data.tickets)]
+      newState.data.tickets = [...newState.data.tickets, ...setTicketId(action.data.tickets)]
       newState.data.stop = action.data.stop
       return newState
     case actionType.SORT_FASTEST:

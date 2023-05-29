@@ -8,7 +8,7 @@ import { getSearchId, getTickets } from '../../actions/actions.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
 import { actionType, filterOption, defaultChunkLength } from '../../constants.js'
 
-const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
+const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
     getSearchId()
   }, [])
@@ -18,6 +18,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
     }
   }, [searchId, tickets])
   const [chunkLength, setChunkLength] = useState(defaultChunkLength)
+  //TODO refactor filter function
   const filter = () => {
     let asd = tickets ? tickets : null
     let result = asd ? [...asd] : []
@@ -141,6 +142,11 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
           <p className={classes['loading-text']}>Ищем билеты...</p>
         </div>
       )}
+      {error ? (
+        <div className={classes.loader}>
+          <p className={classes['loading-text']}>Загрузка всех билетов не удалась, попробуйте перезагрузить страницу</p>
+        </div>
+      ) : null}
       <ul className={classes['tickets-list']}>{showTickets(filter(), chunkLength)}</ul>
       <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />
     </div>
@@ -151,6 +157,7 @@ const mapStateToProps = (state) => {
   return {
     tickets: state.data.tickets,
     stop: state.data.stop,
+    error: state.data.error,
     searchId: state.data.searchId,
     activeFilters: state.activeFilters,
     activeSortTab: state.activeSortTab,

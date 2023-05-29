@@ -1,6 +1,4 @@
-import { actionType } from '../constants.js'
-
-const basUrl = 'https://aviasales-test-api.kata.academy'
+import { actionType, basUrl } from '../constants.js'
 
 export const sortCheapest = () => ({ type: actionType.SORT_CHEAPEST })
 export const sortFastest = () => ({ type: actionType.SORT_FASTEST })
@@ -18,10 +16,18 @@ export const getSearchId = () => {
     try {
       const searchIdResponse = await fetch(`${basUrl}/search`)
       const searchId = await searchIdResponse.json()
-      dispatch({ type: actionType.GET_SEARCH_ID, searchId: searchId })
+      dispatch({
+        type: actionType.GET_SEARCH_ID,
+        searchId: searchId,
+      })
     } catch (error) {
-      // TODO handle errors
-      console.log(error)
+      dispatch({
+        type: actionType.ERROR,
+        data: {
+          error: true,
+          stop: true,
+        },
+      })
     }
   }
 }
@@ -31,13 +37,32 @@ export const getTickets = (searchId) => {
     try {
       ticketsResponse = await fetch(`${basUrl}/tickets?searchId=${searchId.searchId}`)
       const data = await ticketsResponse.json()
-      dispatch({ type: actionType.GET_TICKETS, data: { tickets: data.tickets, stop: data.stop } })
+      dispatch({
+        type: actionType.GET_TICKETS,
+        data: {
+          tickets: data.tickets,
+          stop: data.stop,
+        },
+      })
     } catch (error) {
-      // TODO handle errors
-      if (ticketsResponse.status === 500) {
+      if (ticketsResponse?.status === 500) {
+        dispatch({
+          type: actionType.GET_TICKETS,
+          data: {
+            tickets: [],
+          },
+        })
         getTickets(searchId)
+      } else {
+        dispatch({
+          type: actionType.ERROR,
+          data: {
+            tickets: [],
+            stop: true,
+            error: true,
+          },
+        })
       }
-      dispatch({ type: actionType.GET_TICKETS, data: { tickets: [] } })
     }
   }
 }

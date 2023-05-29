@@ -4,6 +4,7 @@ export const actionType = {
   FILTER: 'FILTER',
   GET_SEARCH_ID: 'GET_SEARCH_ID',
   GET_TICKETS: 'GET_TICKETS',
+  ERROR: 'ERROR',
 }
 export const filterOption = {
   ALL: 'ALL',
@@ -51,5 +52,6 @@ export const MIN_STOPS_LENGTH = 1
 export const MIN_LEFT_PAD_NUMBER = 10
 export const TIME_FORMAT = 'kk:mm'
 export const NO_STOPS_TEXT = 'Нет'
-export const defaultChunkLength = 5
 export const ALL_FILTERS_SELECTED_NUMBER = 4
+export const defaultChunkLength = 5
+export const basUrl = 'https://aviasales-test-api.kata.academy'
