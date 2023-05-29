@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { filter } from '../../actions/actions.js'
+import { filter } from '../../store/actions/actions.js'
 import Filter from '../Filter/index.js'
 import { filters } from '../../constants/constants.js'
 

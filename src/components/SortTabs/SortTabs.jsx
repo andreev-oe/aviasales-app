@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { sortCheapest, sortFastest } from '../../actions/actions.js'
+import { sortCheapest, sortFastest } from '../../store/actions/actions.js'
 import { actionType } from '../../constants/constants.js'
 
 import classes from './SortTabs.module.scss'

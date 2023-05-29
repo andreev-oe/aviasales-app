@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
-import { getSearchId, getTickets } from '../../actions/actions.js'
+import { getSearchId, getTickets } from '../../store/actions/actions.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
 import { defaultChunkLength } from '../../constants/constants.js'
 import { filterItems } from '../../utilities/utilities.js'

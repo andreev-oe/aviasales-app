@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 
 import App from './components/App/index.js'
-import rootReducer from './reducer/rootReducer.js'
+import rootReducer from './store/reducers/rootReducer.js'
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
