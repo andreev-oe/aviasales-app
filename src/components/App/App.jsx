@@ -1,6 +1,6 @@
 import React from 'react'
 
-import TransferFilters from '../TransferFilters/index.js'
+import TransferFilters from '../FiltersList/index.js'
 import TicketsList from '../TicketsList/index.js'
 import SortTabs from '../SortTabs/index.js'
 import logo from '../../icons/logo.png'

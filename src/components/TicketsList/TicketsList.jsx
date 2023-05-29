@@ -7,6 +7,8 @@ import classes from '../TicketsList/TicketsList.module.scss'
 import { getSearchId, getTickets } from '../../actions/actions.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
 
+const defaultChunkLength = 5
+
 const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
     getSearchId()
@@ -16,7 +18,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
       getTickets(searchId)
     }
   }, [searchId, tickets])
-  const [chunkLength, setChunkLength] = useState(5)
+  const [chunkLength, setChunkLength] = useState(defaultChunkLength)
   const filter = () => {
     let asd = tickets ? tickets : null
     let result = asd ? [...asd] : []
@@ -118,15 +120,13 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
       }
     }
   }
-  const showTickets = (tickets, ticketsPortion = 5) => {
-    const chunk = tickets.slice(0, ticketsPortion).map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)
-    if (chunk.length > 5) {
-      return chunk
+  const showTickets = (tickets, ticketsPortion = defaultChunkLength) => {
+    if (tickets) {
+      return tickets.slice(0, ticketsPortion).map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)
     }
-    return chunk
   }
   const onShowMoreButtonClick = () => {
-    setChunkLength((chunkLength) => chunkLength + 5)
+    setChunkLength((chunkLength) => chunkLength + defaultChunkLength)
   }
   return (
     <div className={classes.tickets}>
@@ -136,7 +136,9 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
           <p className={classes['loading-text']}>Loading tickets...</p>
         </div>
       )}
-      {showTickets(filter(), chunkLength)}
+      <ul className={classes['tickets-list']}>
+        {showTickets(filter(), chunkLength) ? showTickets(filter(), chunkLength) : 'Tickets not found'}
+      </ul>
       <ShowMoreButton onShowMoreButtonClick={onShowMoreButtonClick} />
     </div>
   )
