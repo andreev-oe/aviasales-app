@@ -13,6 +13,12 @@ export const filterOption = {
   TWO_TRANSFERS: '2',
   THREE_TRANSFERS: '3',
 }
+export const transfersCount = {
+  NONE: 0,
+  ONE_TRANSFER: 1,
+  TWO_TRANSFERS: 2,
+  THREE_TRANSFERS: 3,
+}
 export const filters = [
   {
     id: 1,

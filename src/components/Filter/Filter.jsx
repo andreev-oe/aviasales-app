@@ -1,9 +1,8 @@
 import React from 'react'
 
-import classes from '../FiltersList/FiltersList.module.scss'
+import classes from '../Filter/Filter.module.scss'
 
 const Filter = ({ activeFilters, filter, id, name, description }) => {
-  //TODO style checkboxes
   return (
     <label htmlFor={id} className={classes.transfer}>
       <input

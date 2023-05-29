@@ -1,0 +1,38 @@
+.transfer {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 13px;
+  height: 40px;
+  padding-left: 20px;
+  margin: 0;
+}
+.transfer:hover {
+  background-color: #f1fcff;
+  cursor: url(../../icons/cursor.png), pointer;
+}
+.transfer-title {
+  margin: 0 0 0 30px;
+  padding: 10px;
+  vertical-align: middle;
+  color: #4a4a4a;
+}
+.checkbox:before {
+  content: url('../../icons/checkbox_empty.png');
+  width: 20px;
+  height: 20px;
+}
+.checkbox:checked:before {
+  content: url('../../icons/checkbox-checked.png');
+  width: 20px;
+  height: 20px;
+}
+.checkbox {
+  position: absolute;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.checkbox:hover {
+  cursor: url(../../icons/cursor.png), pointer;
+}

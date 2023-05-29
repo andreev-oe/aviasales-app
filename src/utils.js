@@ -1,4 +1,4 @@
-import { filterOption, actionType } from './constants.js'
+import { filterOption, actionType, transfersCount } from './constants.js'
 
 const sortItemsDuration = (items) => {
   items.sort((a, b) => {
@@ -40,7 +40,10 @@ export const filterItems = (tickets, activeFilters, activeSortTab) => {
   if (activeFilters.some((filterName) => filterName === filterOption.NONE)) {
     noTransfers = [
       ...tickets.filter((ticket) => {
-        if (!ticket.segments[0].stops.length && !ticket.segments[1].stops.length) {
+        if (
+          ticket.segments[0].stops.length === transfersCount.NONE &&
+          ticket.segments[1].stops.length === transfersCount.NONE
+        ) {
           return ticket
         }
       }),
@@ -49,7 +52,10 @@ export const filterItems = (tickets, activeFilters, activeSortTab) => {
   if (activeFilters.some((filterName) => filterName === filterOption.ONE_TRANSFER)) {
     oneTransfer = [
       ...tickets.filter((ticket) => {
-        if (ticket.segments[0].stops.length === 1 && ticket.segments[1].stops.length === 1) {
+        if (
+          ticket.segments[0].stops.length === transfersCount.ONE_TRANSFER &&
+          ticket.segments[1].stops.length === transfersCount.ONE_TRANSFER
+        ) {
           return ticket
         }
       }),
@@ -58,7 +64,10 @@ export const filterItems = (tickets, activeFilters, activeSortTab) => {
   if (activeFilters.some((filterName) => filterName === filterOption.TWO_TRANSFERS)) {
     twoTransfers = [
       ...tickets.filter((ticket) => {
-        if (ticket.segments[0].stops.length === 2 && ticket.segments[1].stops.length === 2) {
+        if (
+          ticket.segments[0].stops.length === transfersCount.TWO_TRANSFERS &&
+          ticket.segments[1].stops.length === transfersCount.TWO_TRANSFERS
+        ) {
           return ticket
         }
       }),
@@ -67,7 +76,10 @@ export const filterItems = (tickets, activeFilters, activeSortTab) => {
   if (activeFilters.some((filterName) => filterName === filterOption.THREE_TRANSFERS)) {
     threeTransfers = [
       ...tickets.filter((ticket) => {
-        if (ticket.segments[0].stops.length === 3 && ticket.segments[1].stops.length === 3) {
+        if (
+          ticket.segments[0].stops.length === transfersCount.THREE_TRANSFERS &&
+          ticket.segments[1].stops.length === transfersCount.THREE_TRANSFERS
+        ) {
           return ticket
         }
       }),
