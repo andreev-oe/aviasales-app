@@ -1,9 +1,17 @@
 import { nanoid } from 'nanoid'
 
+import { actionType, filterOption, ALL_FILTERS_SELECTED_NUMBER, spliceParams } from '../constants.js'
+
 const rootReducer = (
   state = {
-    activeSortTab: 'SORT_CHEAPEST',
-    activeFilters: ['ALL', 'NONE', '1', '2', '3'],
+    activeSortTab: actionType.SORT_CHEAPEST,
+    activeFilters: [
+      filterOption.ALL,
+      filterOption.NONE,
+      filterOption.ONE_TRANSFER,
+      filterOption.TWO_TRANSFERS,
+      filterOption.THREE_TRANSFERS,
+    ],
     data: {
       tickets: [],
       stop: false,
@@ -22,43 +30,55 @@ const rootReducer = (
     })
   const filterIndex = (filterName) => newState.activeFilters.findIndex((name) => name === filterName)
   switch (action.type) {
-    case 'GET_SEARCH_ID':
+    case actionType.GET_SEARCH_ID:
       newState.data.searchId = action.searchId
       return newState
-    case 'GET_TICKETS':
+    case actionType.GET_TICKETS:
       newState.data.tickets = [...newState.data.tickets, ...setTicketsId(action.data.tickets)]
       newState.data.stop = action.data.stop
       return newState
-    case 'SORT_FASTEST':
-      newState.activeSortTab = 'SORT_FASTEST'
+    case actionType.SORT_FASTEST:
+      newState.activeSortTab = actionType.SORT_FASTEST
       return newState
-    case 'SORT_CHEAPEST':
-      newState.activeSortTab = 'SORT_CHEAPEST'
+    case actionType.SORT_CHEAPEST:
+      newState.activeSortTab = actionType.SORT_CHEAPEST
       return newState
-    case 'FILTER':
-      if (action.checkedFilter.checked && action.checkedFilter.filterName === 'ALL') {
-        newState.activeFilters = ['ALL', 'NONE', '1', '2', '3']
-      } else if (!action.checkedFilter.checked && action.checkedFilter.filterName === 'ALL') {
+    case actionType.FILTER:
+      if (action.checkedFilter.checked && action.checkedFilter.filterName === filterOption.ALL) {
+        newState.activeFilters = [
+          filterOption.ALL,
+          filterOption.NONE,
+          filterOption.ONE_TRANSFER,
+          filterOption.TWO_TRANSFERS,
+          filterOption.THREE_TRANSFERS,
+        ]
+      } else if (!action.checkedFilter.checked && action.checkedFilter.filterName === filterOption.ALL) {
         newState.activeFilters = []
       } else if (action.checkedFilter.checked && filterIndex(action.checkedFilter.filterName) < 0) {
         newState.activeFilters.push(action.checkedFilter.filterName)
       } else if (!action.checkedFilter.checked) {
         const index = filterIndex(action.checkedFilter.filterName)
-        newState.activeFilters.splice(index, 1)
+        newState.activeFilters.splice(index, spliceParams.DELETE_ONE)
       }
       if (
-        newState.activeFilters.length === 4 &&
+        newState.activeFilters.length === ALL_FILTERS_SELECTED_NUMBER &&
         action.checkedFilter.checked &&
-        action.checkedFilter.filterName !== 'ALL'
+        action.checkedFilter.filterName !== filterOption.ALL
       ) {
-        newState.activeFilters = ['ALL', 'NONE', '1', '2', '3']
+        newState.activeFilters = [
+          filterOption.ALL,
+          filterOption.NONE,
+          filterOption.ONE_TRANSFER,
+          filterOption.TWO_TRANSFERS,
+          filterOption.THREE_TRANSFERS,
+        ]
       } else if (
         !action.checkedFilter.checked &&
-        newState.activeFilters.length === 4 &&
-        action.checkedFilter.filterName !== 'ALL'
+        newState.activeFilters.length === ALL_FILTERS_SELECTED_NUMBER &&
+        action.checkedFilter.filterName !== filterOption.ALL
       ) {
-        const index = filterIndex('ALL')
-        newState.activeFilters.splice(index, 1)
+        const index = filterIndex(filterOption.ALL)
+        newState.activeFilters.splice(index, spliceParams.DELETE_ONE)
       }
       return newState
     default:

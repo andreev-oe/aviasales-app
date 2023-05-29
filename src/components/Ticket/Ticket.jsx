@@ -2,12 +2,13 @@ import React from 'react'
 
 import Route from '../Route/index.js'
 import classes from '../Ticket/Ticket.module.scss'
+import { spliceParams } from '../../constants.js'
 
 const Ticket = ({ ticket }) => {
   const { price, carrier, segments } = ticket
   const formatPrice = (price) => {
     const formattedPrice = price.toString().split('').reverse()
-    formattedPrice.splice(3, 0, ' ')
+    formattedPrice.splice(spliceParams.SPLICE_START_INDEX, spliceParams.DELETE_ZERO, spliceParams.INSERT_VALUE)
     return formattedPrice.reverse().join('')
   }
   return (

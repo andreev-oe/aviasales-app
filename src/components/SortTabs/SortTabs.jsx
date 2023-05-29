@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { sortCheapest, sortFastest } from '../../actions/actions.js'
+import { actionType } from '../../constants.js'
 
 import classes from './SortTabs.module.scss'
 
@@ -12,7 +13,7 @@ const SortTabs = ({ activeSortTab, sortFastest, sortCheapest }) => {
       <button
         onClick={sortCheapest}
         type={'button'}
-        className={`${classes.button} ${activeSortTab === 'SORT_CHEAPEST' ? classes['button-active'] : ''} ${
+        className={`${classes.button} ${activeSortTab === actionType.SORT_CHEAPEST ? classes['button-active'] : ''} ${
           classes['button-cheap']
         }`}
       >
@@ -21,7 +22,7 @@ const SortTabs = ({ activeSortTab, sortFastest, sortCheapest }) => {
       <button
         onClick={sortFastest}
         type={'button'}
-        className={`${classes.button} ${activeSortTab === 'SORT_FASTEST' ? classes['button-active'] : ''} ${
+        className={`${classes.button} ${activeSortTab === actionType.SORT_FASTEST ? classes['button-active'] : ''} ${
           classes['button-fast']
         }`}
       >

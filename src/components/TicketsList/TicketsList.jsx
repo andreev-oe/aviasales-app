@@ -6,8 +6,7 @@ import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
 import { getSearchId, getTickets } from '../../actions/actions.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
-
-const defaultChunkLength = 5
+import { actionType, filterOption, defaultChunkLength } from '../../constants.js'
 
 const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
@@ -26,9 +25,9 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
     let one = []
     let two = []
     let three = []
-    if (activeFilters.some((filterName) => filterName === 'ALL')) {
+    if (activeFilters.some((filterName) => filterName === filterOption.ALL)) {
       switch (activeSortTab) {
-        case 'SORT_FASTEST':
+        case actionType.SORT_FASTEST:
           result.sort((a, b) => {
             if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
               return -1
@@ -39,7 +38,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
             return 0
           })
           return result
-        case 'SORT_CHEAPEST':
+        case actionType.SORT_CHEAPEST:
           result.sort((a, b) => {
             if (a.price < b.price) {
               return -1
@@ -55,7 +54,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
       return null
     }
     if (result.length) {
-      if (activeFilters.some((filterName) => filterName === 'NONE')) {
+      if (activeFilters.some((filterName) => filterName === filterOption.NONE)) {
         none = [
           ...asd.filter((ticket) => {
             if (!ticket.segments[0].stops.length && !ticket.segments[1].stops.length) {
@@ -64,7 +63,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
           }),
         ]
       }
-      if (activeFilters.some((filterName) => filterName === '1')) {
+      if (activeFilters.some((filterName) => filterName === filterOption.ONE_TRANSFER)) {
         one = [
           ...asd.filter((ticket) => {
             if (ticket.segments[0].stops.length === 1 && ticket.segments[1].stops.length === 1) {
@@ -73,7 +72,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
           }),
         ]
       }
-      if (activeFilters.some((filterName) => filterName === '2')) {
+      if (activeFilters.some((filterName) => filterName === filterOption.TWO_TRANSFERS)) {
         two = [
           ...asd.filter((ticket) => {
             if (ticket.segments[0].stops.length === 2 && ticket.segments[1].stops.length === 2) {
@@ -82,7 +81,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
           }),
         ]
       }
-      if (activeFilters.some((filterName) => filterName === '3')) {
+      if (activeFilters.some((filterName) => filterName === filterOption.THREE_TRANSFERS)) {
         three = [
           ...asd.filter((ticket) => {
             if (ticket.segments[0].stops.length === 3 && ticket.segments[1].stops.length === 3) {
@@ -94,7 +93,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
       result = [...none, ...one, ...two, ...three]
       if (result.length) {
         switch (activeSortTab) {
-          case 'SORT_FASTEST':
+          case actionType.SORT_FASTEST:
             result.sort((a, b) => {
               if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
                 return -1
@@ -105,7 +104,7 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
               return 0
             })
             return result
-          case 'SORT_CHEAPEST':
+          case actionType.SORT_CHEAPEST:
             result.sort((a, b) => {
               if (a.price < b.price) {
                 return -1
@@ -124,11 +123,15 @@ const TicketsList = ({ tickets, stop, searchId, getSearchId, getTickets, activeF
     if (tickets) {
       return tickets.slice(0, ticketsPortion).map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)
     } else {
-      return <li className={classes['not-found-text']}>Не найдено билетов по выбранным фильтрам</li>
+      return stop ? (
+        <li className={classes['not-found-text']}>Рейсов, подходящих под заданные фильтры, не найдено</li>
+      ) : null
     }
   }
   const onShowMoreButtonClick = () => {
-    setChunkLength((chunkLength) => chunkLength + defaultChunkLength)
+    if (filter()) {
+      setChunkLength((chunkLength) => chunkLength + defaultChunkLength)
+    }
   }
   return (
     <div className={classes.tickets}>

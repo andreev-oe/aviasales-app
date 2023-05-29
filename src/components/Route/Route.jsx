@@ -2,13 +2,15 @@ import React from 'react'
 import { add, format } from 'date-fns'
 
 import classes from '../Route/Route.module.scss'
+import {
+  MINUTES_IN_HOUR,
+  SECONDS_IN_MINUTE,
+  MIN_STOPS_LENGTH,
+  MIN_LEFT_PAD_NUMBER,
+  TIME_FORMAT,
+  NO_STOPS_TEXT,
+} from '../../constants.js'
 
-const MINUTES_IN_HOUR = 60
-const SECONDS_IN_MINUTE = 60
-const MIN_STOPS_LENGTH = 1
-const MIN_LEFT_PAD_NUMBER = 10
-const TIME_FORMAT = 'kk:mm'
-const NO_STOPS_TEXT = 'Нет'
 const Route = ({ segment: { origin, destination, date, duration, stops } }) => {
   return (
     <table className={classes.table}>

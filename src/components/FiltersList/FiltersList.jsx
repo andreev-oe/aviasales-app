@@ -4,36 +4,9 @@ import { bindActionCreators } from 'redux'
 
 import { filter } from '../../actions/actions.js'
 import Filter from '../Filter/index.js'
+import { filters } from '../../constants.js'
 
 import classes from './FiltersList.module.scss'
-
-const filters = [
-  {
-    id: 1,
-    name: 'ALL',
-    description: 'Все',
-  },
-  {
-    id: 2,
-    name: 'NONE',
-    description: 'Без пересадок',
-  },
-  {
-    id: 3,
-    name: '1',
-    description: '1 пересадка',
-  },
-  {
-    id: 4,
-    name: '2',
-    description: '2 пересадки',
-  },
-  {
-    id: 5,
-    name: '3',
-    description: '3 пересадки',
-  },
-]
 
 const FiltersList = ({ filter, activeFilters }) => {
   return (
