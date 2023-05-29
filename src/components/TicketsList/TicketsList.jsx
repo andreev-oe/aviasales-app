@@ -6,8 +6,8 @@ import Ticket from '../Ticket/index.js'
 import classes from '../TicketsList/TicketsList.module.scss'
 import { getSearchId, getTickets } from '../../actions/actions.js'
 import ShowMoreButton from '../ShowMoreButton/index.js'
-import { filterOption, defaultChunkLength } from '../../constants.js'
-import { sortItems, filterItems } from '../../utils.js'
+import { defaultChunkLength } from '../../constants.js'
+import { filterItems } from '../../utils.js'
 
 const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, activeFilters, activeSortTab }) => {
   useEffect(() => {
@@ -20,16 +20,14 @@ const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, 
   }, [searchId, tickets])
   useEffect(() => {
     setPreparedTickets(prepareTicketsList(tickets))
-  }, [activeFilters, activeSortTab, tickets])
+  }, [activeFilters, activeSortTab])
   const [chunkLength, setChunkLength] = useState(defaultChunkLength)
   const [preparedTickets, setPreparedTickets] = useState([])
   const prepareTicketsList = (tickets) => {
-    if (activeFilters.some((filterName) => filterName === filterOption.ALL)) {
-      return sortItems(activeSortTab, tickets)
-    } else if (!activeFilters.length) {
-      return null
-    } else {
+    if (activeFilters.length) {
       return filterItems(tickets, activeFilters, activeSortTab)
+    } else {
+      return null
     }
   }
   const showTickets = (tickets, ticketsPortion = defaultChunkLength) => {
@@ -64,7 +62,6 @@ const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, 
     </div>
   )
 }
-
 const mapStateToProps = (state) => {
   return {
     tickets: state.data.tickets,
