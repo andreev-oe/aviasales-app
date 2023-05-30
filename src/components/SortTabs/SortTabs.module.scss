@@ -1,25 +1,26 @@
+@import '../../common-styles/variables';
+
 .tabs {
   display: flex;
 }
 .button {
   text-transform: uppercase;
   height: 50px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font-family__main;
   width: 50%;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 20px;
-  color: #4a4a4a;
-  background: #ffffff;
-  border: 1px solid #dfe5ec;
+  font-weight: $font-weight__600;
+  font-size: $font-size__12;
+  line-height: $line-height__20;
+  color: $color__title;
+  background: $color__main-background;
+  border: 1px solid $color__button--border;
   &:hover {
     cursor: url(../../assets/icons/cursor.png), pointer;
   }
   &--active {
-    color: #ffffff;
-    background-color: #2196f3;
-    border-color: #2196f3;
+    color: $color__main-background;
+    background-color: $color__main;
+    border-color: $color__main;
   }
   &--cheap {
     border-top-left-radius: 5px;

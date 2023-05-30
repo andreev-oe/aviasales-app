@@ -1,3 +1,5 @@
+@import '../../common-styles/variables';
+
 .tickets-list {
   padding: 0;
   margin: 20px 0;
@@ -7,19 +9,19 @@
   &__bar {
     margin: 5px;
     height: 3px;
-    background-color: #2196f3;
+    background-color: $color__main;
     animation: line 3s infinite alternate linear;
   }
   &__text {
     margin: 5px;
-    font-size: 14px;
+    font-size: $font-size__14;
     text-align: center;
   }
 }
 .not-found-text {
   list-style: none;
   text-align: center;
-  font-size: 14px;
+  font-size: $font-size__14;
 }
 
 @keyframes line {

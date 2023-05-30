@@ -1,9 +1,11 @@
+@import '../../common-styles/variables';
+
 .ticket {
   list-style: none;
   padding: 20px;
   cursor: url(../../assets/icons/cursor.png), pointer;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: $color__main-background;
+  box-shadow: 0 2px 8px $color__box-shadow;
   border-radius: 5px;
   margin-bottom: 20px;
 }
@@ -15,9 +17,9 @@
 }
 .price {
   margin: 0;
-  font-weight: 600;
-  font-size: 24px;
-  color: #2196f3;
+  font-weight: $font-weight__600;
+  font-size: $font-size__24;
+  color: $color__main;
 }
 .company-logo {
   display: block;

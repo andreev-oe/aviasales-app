@@ -1,3 +1,5 @@
+@import '../../common-styles/variables';
+
 .table {
   margin: 20px 0 0 0;
   border-collapse: separate;
@@ -6,21 +8,19 @@
 .thead {
 }
 .th {
-  letter-spacing: 0.5px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 18px;
+  letter-spacing: $letter-spacing__05;
+  font-weight: $font-weight__600;
+  font-size: $font-size__12;
+  line-height: $line-height__18;
   width: 140px;
   padding: 0 20px 0 0;
   text-transform: uppercase;
-  color: #a0b0b9;
+  color: $color__th;
 }
 .td {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 21px;
+  font-weight: $font-weight__600;
+  font-size: $font-size__14;
+  line-height: $line-height__21;
   padding: 0 20px 0 0;
-  color: #4a4a4a;
+  color: $color__td;
 }

@@ -1,16 +1,18 @@
+@import '../../common-styles/variables';
+
 .page-wrapper {
-  background-color: #f3f7fa;
+  background-color: $color__page-wrapper;
   max-width: 960px;
   min-width: 460px;
   margin: 0 auto;
   padding: 50px 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font-family__main;
 }
 .content-wrapper {
   gap: 20px;
   display: flex;
   margin: 0 103px;
-  @media (max-width: 880px) {
+  @media (max-width: $screen__mobile) {
     flex-direction: column;
     margin: 0 20px;
   }

@@ -1,25 +1,27 @@
+@import '../../common-styles/variables';
+
 .filters {
   padding: 20px 0;
   box-sizing: border-box;
   width: 232px;
   height: 252px;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: $color__main-background;
+  box-shadow: 0 2px 8px $color__box-shadow;
   border-radius: 5px;
-  @media (max-width: 880px) {
+  @media (max-width: $screen__mobile) {
     width: 100%;
     height: auto;
   }
   &__title {
-    font-weight: 600;
-    font-size: 12px;
+    font-weight: $font-weight__600;
+    font-size: $font-size__12;
     text-transform: uppercase;
-    color: #4a4a4a;
+    color: $color__title;
     margin: 0 0 10px 0;
     padding-left: 20px;
   }
   &__list {
-    @media (max-width: 880px) {
+    @media (max-width: $screen__mobile) {
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
