@@ -33,58 +33,26 @@ export const sortItems = (activeSortTab, items) => {
   }
 }
 export const filterItems = (tickets, activeFilters, activeSortTab) => {
-  let noTransfers = []
-  let oneTransfer = []
-  let twoTransfers = []
-  let threeTransfers = []
-  if (activeFilters.some((filterName) => filterName === filterOption.NONE)) {
-    noTransfers = [
-      ...tickets.filter((ticket) => {
-        if (
-          ticket.segments[0].stops.length === transfersCount.NONE &&
-          ticket.segments[1].stops.length === transfersCount.NONE
-        ) {
-          return ticket
-        }
-      }),
-    ]
+  const filterTransfers = (name, transfersCount) => {
+    if (activeFilters.some((filterName) => filterName === name)) {
+      return [
+        ...tickets.filter((ticket) => {
+          if (
+            ticket.segments[0].stops.length === transfersCount &&
+            ticket.segments[1].stops.length === transfersCount
+          ) {
+            return ticket
+          }
+        }),
+      ]
+    } else {
+      return []
+    }
   }
-  if (activeFilters.some((filterName) => filterName === filterOption.ONE_TRANSFER)) {
-    oneTransfer = [
-      ...tickets.filter((ticket) => {
-        if (
-          ticket.segments[0].stops.length === transfersCount.ONE_TRANSFER &&
-          ticket.segments[1].stops.length === transfersCount.ONE_TRANSFER
-        ) {
-          return ticket
-        }
-      }),
-    ]
-  }
-  if (activeFilters.some((filterName) => filterName === filterOption.TWO_TRANSFERS)) {
-    twoTransfers = [
-      ...tickets.filter((ticket) => {
-        if (
-          ticket.segments[0].stops.length === transfersCount.TWO_TRANSFERS &&
-          ticket.segments[1].stops.length === transfersCount.TWO_TRANSFERS
-        ) {
-          return ticket
-        }
-      }),
-    ]
-  }
-  if (activeFilters.some((filterName) => filterName === filterOption.THREE_TRANSFERS)) {
-    threeTransfers = [
-      ...tickets.filter((ticket) => {
-        if (
-          ticket.segments[0].stops.length === transfersCount.THREE_TRANSFERS &&
-          ticket.segments[1].stops.length === transfersCount.THREE_TRANSFERS
-        ) {
-          return ticket
-        }
-      }),
-    ]
-  }
+  const noTransfers = filterTransfers(filterOption.NONE, transfersCount.NONE)
+  const oneTransfer = filterTransfers(filterOption.ONE_TRANSFER, transfersCount.ONE_TRANSFER)
+  const twoTransfers = filterTransfers(filterOption.TWO_TRANSFERS, transfersCount.TWO_TRANSFERS)
+  const threeTransfers = filterTransfers(filterOption.THREE_TRANSFERS, transfersCount.THREE_TRANSFERS)
   const result = [...noTransfers, ...oneTransfer, ...twoTransfers, ...threeTransfers]
   if (result.length) {
     return sortItems(activeSortTab, result)
