@@ -10,9 +10,7 @@
   gap: 20px;
   display: flex;
   margin: 0 103px;
-}
-@media (max-width: 880px) {
-  .content-wrapper {
+  @media (max-width: 880px) {
     flex-direction: column;
     margin: 0 20px;
   }

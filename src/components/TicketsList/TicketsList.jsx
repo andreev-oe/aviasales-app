@@ -45,16 +45,16 @@ const TicketsList = ({ tickets, stop, error, searchId, getSearchId, getTickets, 
     }
   }
   return (
-    <div className={classes.tickets}>
+    <div>
       {stop ? null : (
         <div className={classes.loader}>
-          <div className={classes.loading}></div>
-          <p className={classes['loading-text']}>Ищем билеты...</p>
+          <div className={classes['loader__bar']}></div>
+          <p className={classes['loader__text']}>Ищем билеты...</p>
         </div>
       )}
       {error ? (
         <div className={classes.loader}>
-          <p className={classes['loading-text']}>Загрузка всех билетов не удалась, попробуйте перезагрузить страницу</p>
+          <p className={classes['loader__text']}>Загрузка всех билетов не удалась, попробуйте перезагрузить страницу</p>
         </div>
       ) : null}
       <ul className={classes['tickets-list']}>{showTickets(preparedTickets, chunkLength)}</ul>

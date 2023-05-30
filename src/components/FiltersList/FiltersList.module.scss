@@ -1,4 +1,4 @@
-.transfers {
+.filters {
   padding: 20px 0;
   box-sizing: border-box;
   width: 232px;
@@ -6,23 +6,23 @@
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-}
-.transfers-title {
-  font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  color: #4a4a4a;
-  margin: 0 0 10px 0;
-  padding-left: 20px;
-}
-@media (max-width: 880px) {
-  .variants {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-  }
-  .transfers {
+  @media (max-width: 880px) {
     width: 100%;
     height: auto;
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    margin: 0 0 10px 0;
+    padding-left: 20px;
+  }
+  &__list {
+    @media (max-width: 880px) {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+    }
   }
 }

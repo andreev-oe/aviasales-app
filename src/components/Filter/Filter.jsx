@@ -4,7 +4,7 @@ import classes from '../Filter/Filter.module.scss'
 
 const Filter = ({ activeFilters, filter, id, name, description }) => {
   return (
-    <label htmlFor={id} className={classes.transfer}>
+    <label htmlFor={id} className={classes.filter}>
       <input
         onChange={filter}
         data-filter-name={name}
@@ -13,7 +13,7 @@ const Filter = ({ activeFilters, filter, id, name, description }) => {
         className={classes.checkbox}
         checked={activeFilters.some((filterName) => filterName === name)}
       />
-      <p className={classes['transfer-title']}>{description}</p>
+      <p className={classes['filter__title']}>{description}</p>
     </label>
   )
 }

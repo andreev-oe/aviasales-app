@@ -13,8 +13,8 @@ const SortTabs = ({ activeSortTab, sortFastest, sortCheapest }) => {
       <button
         onClick={sortCheapest}
         type={'button'}
-        className={`${classes.button} ${activeSortTab === actionType.SORT_CHEAPEST ? classes['button-active'] : ''} ${
-          classes['button-cheap']
+        className={`${classes.button} ${activeSortTab === actionType.SORT_CHEAPEST ? classes['button--active'] : ''} ${
+          classes['button--cheap']
         }`}
       >
         Самый дешёвый
@@ -22,8 +22,8 @@ const SortTabs = ({ activeSortTab, sortFastest, sortCheapest }) => {
       <button
         onClick={sortFastest}
         type={'button'}
-        className={`${classes.button} ${activeSortTab === actionType.SORT_FASTEST ? classes['button-active'] : ''} ${
-          classes['button-fast']
+        className={`${classes.button} ${activeSortTab === actionType.SORT_FASTEST ? classes['button--active'] : ''} ${
+          classes['button--fast']
         }`}
       >
         Самый быстрый

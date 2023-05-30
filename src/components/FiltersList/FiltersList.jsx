@@ -10,9 +10,9 @@ import classes from './FiltersList.module.scss'
 
 const FiltersList = ({ filter, activeFilters }) => {
   return (
-    <section className={classes.transfers}>
-      <h2 className={classes['transfers-title']}>Количество пересадок</h2>
-      <div className={classes.variants}>
+    <section className={classes.filters}>
+      <h2 className={classes['filters__title']}>Количество пересадок</h2>
+      <div className={classes['filters__list']}>
         {filters.map((filterItem) => {
           return (
             <Filter
