@@ -1,4 +1,4 @@
-import { actionType, basUrl } from '../../constants/constants.js'
+import { actionType, baseUrl, STATUS_500 } from '../../constants/constants.js'
 
 export const sortCheapest = () => ({ type: actionType.SORT_CHEAPEST })
 export const sortFastest = () => ({ type: actionType.SORT_FASTEST })
@@ -14,7 +14,7 @@ export const filter = (evt) => {
 export const getSearchId = () => {
   return async (dispatch) => {
     try {
-      const searchIdResponse = await fetch(`${basUrl}/search`)
+      const searchIdResponse = await fetch(`${baseUrl}/search`)
       const searchId = await searchIdResponse.json()
       dispatch({
         type: actionType.GET_SEARCH_ID,
@@ -35,7 +35,7 @@ export const getTickets = (searchId) => {
   let ticketsResponse
   return async (dispatch) => {
     try {
-      ticketsResponse = await fetch(`${basUrl}/tickets?searchId=${searchId.searchId}`)
+      ticketsResponse = await fetch(`${baseUrl}/tickets?searchId=${searchId.searchId}`)
       const data = await ticketsResponse.json()
       dispatch({
         type: actionType.GET_TICKETS,
@@ -45,7 +45,7 @@ export const getTickets = (searchId) => {
         },
       })
     } catch (error) {
-      if (ticketsResponse?.status === 500) {
+      if (ticketsResponse?.status === STATUS_500) {
         dispatch({
           type: actionType.GET_TICKETS,
           data: {

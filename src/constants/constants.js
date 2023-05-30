@@ -59,5 +59,6 @@ export const MIN_LEFT_PAD_NUMBER = 10
 export const TIME_FORMAT = 'kk:mm'
 export const NO_STOPS_TEXT = 'Нет'
 export const ALL_FILTERS_SELECTED_NUMBER = 4
+export const STATUS_500 = 500
 export const defaultChunkLength = 5
-export const basUrl = 'https://aviasales-test-api.kata.academy'
+export const baseUrl = 'https://aviasales-test-api.kata.academy'
