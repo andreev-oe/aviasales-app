@@ -72,11 +72,10 @@ const mapStateToProps = (state) => {
     activeSortTab: state.activeSortTab,
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getTickets: bindActionCreators(getTickets, dispatch),
-    getSearchId: bindActionCreators(getSearchId, dispatch),
-  }
+const ticketListActionCreators = {
+  getTickets,
+  getSearchId,
 }
+const mapDispatchToProps = (dispatch) => bindActionCreators(ticketListActionCreators, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicketsList)

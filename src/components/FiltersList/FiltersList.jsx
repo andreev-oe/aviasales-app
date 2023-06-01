@@ -34,10 +34,9 @@ const mapStateToProps = (state) => {
     activeFilters: state.activeFilters,
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    filter: bindActionCreators(filter, dispatch),
-  }
+const filterListActionCreators = {
+  filter,
 }
+const mapDispatchToProps = (dispatch) => bindActionCreators(filterListActionCreators, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(FiltersList)

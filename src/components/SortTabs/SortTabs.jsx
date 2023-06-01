@@ -36,11 +36,10 @@ const mapStateToProps = (state) => {
     activeSortTab: state.activeSortTab,
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sortFastest: bindActionCreators(sortFastest, dispatch),
-    sortCheapest: bindActionCreators(sortCheapest, dispatch),
-  }
+const sortTabsActionCreators = {
+  sortFastest,
+  sortCheapest,
 }
+const mapDispatchToProps = (dispatch) => bindActionCreators(sortTabsActionCreators, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(SortTabs)
